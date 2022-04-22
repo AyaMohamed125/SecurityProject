@@ -288,17 +288,12 @@ namespace SecurityLibrary.AES
                 string[,] sBoxMatrixChangerBinary = new string[4, 4];
 
                 for (int o = 0; o < 4; o++)
-                {
                     for (int j = 0; j < 4; j++)
-                    {
                         sBoxMatrixChangerBinary[o, j] = To_Binary(sBoxMatrixChanger[o, j]);
-                    }
-                }
 
                 //Multiplying two matrices of hexa numbers
                 for (int j = 0; j < 4; j++)
                 {
-
                     counter = 0;
 
                     for (int q = 0; q < 4; q++)
