@@ -4,3 +4,9 @@ D:\Work\2021 2022\sec term\Security\Computer Security Labs\Security Package\star
 D:\Work\2021 2022\sec term\Security\Computer Security Labs\Security Package\startupcode\SecurityLibrary\obj\Debug\SecurityLibrary.csproj.CoreCompileInputs.cache
 D:\Work\2021 2022\sec term\Security\Computer Security Labs\Security Package\startupcode\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 D:\Work\2021 2022\sec term\Security\Computer Security Labs\Security Package\startupcode\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.csproj.AssemblyReference.cache
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.csproj.CoreCompileInputs.cache
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
