@@ -62,36 +62,31 @@ namespace SecurityLibrary.AES
         {
             string[] matrix = new string[4];
             for (int i = 0; i < 4; i++)
-            {
                 matrix[i] = m[(i + j) % 4];
-            }
+
             return matrix;
         }
         public static string[] Edit_Column(string[,] x)
         {
             string[] sub_array = new string[4];
             for (int i = 0; i < 4; i++)
-            {
                 sub_array[i] = x[(i + 1) % 4, 3];
-            }
+
             return sub_array;
         }
         public static string[,] EditLastColumn(string[,] m)
         {
             string[,] matrix = new string[4, 1];
             for (int i = 0; i < 4; i++)
-            {
                 matrix[i, 0] = m[(i + 1) % 4, 0];
-            }
             return matrix;
         }
         public static string EditMatrixBinaryShift(string x)
         {
             string sub_array = "";
             for (int i = 0; i < x.Length; i++)
-            {
                 sub_array = sub_array + x[(i + 1) % x.Length];
-            }
+
             return sub_array;
         }
         public static string[,] Shift_Rows(string[,] matrix)
@@ -101,14 +96,13 @@ namespace SecurityLibrary.AES
             for (int j = 0; j < 4; j++)
             {
                 for (int i = 0; i < 4; i++)
-                {
                     x[i] = matrix[row, i];
-                }
+
                 x = EditRow(x, j);
+
                 for (int z = 0; z < 4; z++)
-                {
                     matrix[row, z] = x[z];
-                }
+
                 row++;
             }
             return matrix;
@@ -134,9 +128,7 @@ namespace SecurityLibrary.AES
             //convert from hexa to binary
             str = Convert.ToString(Convert.ToInt64(str, 16), 2);
             if (str.Length < 8)
-            {
                 str = new string('0', 8 - str.Length) + str;
-            }
             return str;
         }
         public static string To_Hexa(string str)
@@ -155,35 +147,20 @@ namespace SecurityLibrary.AES
                 if (res.Length != 1)
                 {
                     if (res == "10")
-                    {
                         res = "A";
-                    }
                     else if (res == "11")
-                    {
                         res = "B";
-                    }
                     else if (res == "12")
-                    {
                         res = "C";
-                    }
                     else if (res == "13")
-                    {
                         res = "D";
-                    }
                     else if (res == "14")
-                    {
                         res = "E";
-                    }
                     else
-                    {
                         res = "F";
-                    }
-
                 }
                 else
-                {
                     res = res;
-                }
                 test = test + res;
             }
             //res = Convert.ToString(Convert.ToInt64(str, 16), 2);
@@ -195,14 +172,9 @@ namespace SecurityLibrary.AES
             for (int i = 0; i < str2.Length; i++)
             {
                 if (i < str1.Length && str1[i] == str2[i])
-                {
                     result += '0';
-                }
                 else
-                {
                     result += '1';
-                }
-
             }
             return result;
         }
