@@ -16,3 +16,5 @@ C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\obj\Debug\Se
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\obj\Debug\SecurityPackageTest.csproj.CopyComplete
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\bin\Debug\MathNet.Numerics.dll
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityPackageTest\bin\Debug\MathNet.Numerics.xml

@@ -219,9 +219,6 @@ namespace SecurityLibrary.AES
             return res;
         }
         /***********************************************************************************************************/
-       /// <summary>
-       /// ////////////////////////////////////////////////////////////////////
-       /// </summary>
         byte[,] sbox = new byte[16, 16] {   {0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76},
                                             {0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0},
                                             {0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15},
@@ -263,7 +260,7 @@ namespace SecurityLibrary.AES
                                                         {0x09, 0x0e, 0x0b, 0x0d},
                                                         {0x0d, 0x09, 0x0e, 0x0b},
                                                         {0x0b, 0x0d, 0x09, 0x0e}};
-        byte[,] key_expansion = new byte[44, 4];
+        byte[,] key_expansion = new byte[44, 4];//roundes
         byte[] Rotword(byte[] word)
         {
             byte first = word[0];
@@ -272,7 +269,7 @@ namespace SecurityLibrary.AES
             word[3] = first;
             return word;
         }
-        byte[] Sub_Byte(byte[] word)
+        byte[] Sub_Byte(byte[] word)//get from sbox
         {
             byte[] ret = new byte[4];
             int newI;
@@ -344,10 +341,26 @@ namespace SecurityLibrary.AES
             }
             return matrix;
         }
-        void put_key(string key)
+        byte[,] makeByteMatrix2(string str)
+        {
+            byte[,] matrix = new byte[4, 4];
+
+            int k = 2;
+            for (int j = 0; j < 4; j++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    string tmp = "0x" + str[k] + str[k + 1];
+                    matrix[j, i] = Convert.ToByte(tmp, 16);
+                    k += 2;
+                }
+            }
+            return matrix;
+        }
+        void put_key(string key)//round keys rounds
         {
             byte[,] key_arr = new byte[4, 4];
-            key_arr = createMatrix_Byte(key);
+            key_arr = makeByteMatrix2(key);
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
                     key_expansion[i, j] = key_arr[i, j];
@@ -383,7 +396,7 @@ namespace SecurityLibrary.AES
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    tmp = Convert.ToString(key_round[i, j] ^ matrix[i, j], 16);
+                    tmp = Convert.ToString(key_round[i, j] ^ matrix[i, j], 16);//Logical exclusive OR operator ^
                     key_round[i, j] = Convert.ToByte(tmp, 16);
                 }
             }
@@ -394,7 +407,7 @@ namespace SecurityLibrary.AES
             byte[] first = new byte[4];
             byte[] second = new byte[4];
             byte[] third = new byte[4];
-            byte[] final = new byte[4];
+            byte[] fourth = new byte[4];
             for (int i = 4; i < 44; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -408,17 +421,17 @@ namespace SecurityLibrary.AES
                 {
                     // Console.WriteLine(i);
                     Rcon_index++;
-                    first = Rotword(first);
-                    first = Sub_Byte(first);
-                    final = xor(first, second, third, 1);
+                    first = Rotword(first);//movement of frist line in matrix
+                    first = Sub_Byte(first);//sbox
+                    fourth = xor(first, second, third, 1);
                 }
                 else
-                    final = xor(first, second, third, 0);
+                    fourth = xor(first, second, third, 0);
 
                 for (int j = 0; j < 4; j++)
                 {
                     // Console.Write(key_expansion[i,j]);
-                    key_expansion[i, j] = final[j];
+                    key_expansion[i, j] = fourth[j];//put the fourth in round 
                 }
 
             }
@@ -443,8 +456,8 @@ namespace SecurityLibrary.AES
             byte ret;
             UInt32 temp = Convert.ToUInt32(x << 1);
             ret = (byte)(temp & 0xFF);
-            if (x > 127)
-                ret = Convert.ToByte(ret ^ 27);
+            if (x > 127)///////////////
+                ret = Convert.ToByte(ret ^ 27);//Logical exclusive OR operator ^
             return ret;
         }
         byte[,] mixColsInverse(byte[,] shiftedmatrix)
@@ -464,7 +477,8 @@ namespace SecurityLibrary.AES
                             byte x1 = advancedmultiplybyTwo(x0);
                             byte x2 = advancedmultiplybyTwo(x1);
                             byte x3 = advancedmultiplybyTwo(x2);
-                            arrayXor[k] = Convert.ToByte(x3 ^ x0);
+                            arrayXor[k] = Convert.ToByte(x3 ^ x0);//Logical exclusive OR operator ^
+                            //x8 + x4 + x3 + x + 1.
                         }
                         if (galoisFieldInverse[j, k] == 0xB)
                         {
@@ -472,8 +486,8 @@ namespace SecurityLibrary.AES
                             byte x1 = advancedmultiplybyTwo(x0);
                             byte x2 = advancedmultiplybyTwo(x1);
                             byte x3 = advancedmultiplybyTwo(x2);
-                            arrayXor[k] = Convert.ToByte(x3 ^ x0 ^ x1);
-                            //UInt32 tmp = Convert.ToUInt32(((((shiftedmatrix[k, i] << 1) << 1) ^ shiftedmatrix[k, i]) << 1) ^ shiftedmatrix[k, i]);//x*2*2^x*2^x
+                            arrayXor[k] = Convert.ToByte(x3 ^ x0 ^ x1);//Logical exclusive OR operator ^
+                            //x8 + x4 + x3 + x + 1.
                         }
                         if (galoisFieldInverse[j, k] == 0xD)
                         {
@@ -481,8 +495,8 @@ namespace SecurityLibrary.AES
                             byte x1 = advancedmultiplybyTwo(x0);
                             byte x2 = advancedmultiplybyTwo(x1);
                             byte x3 = advancedmultiplybyTwo(x2);
-                            arrayXor[k] = Convert.ToByte(x3 ^ x2 ^ x0);
-                            //UInt32 tmp = Convert.ToUInt32(((((shiftedmatrix[k, i] << 1) ^ shiftedmatrix[k, i]) << 1) << 1) ^ shiftedmatrix[k, i]);//x*2^x*2*2^x
+                            arrayXor[k] = Convert.ToByte(x3 ^ x2 ^ x0);//Logical exclusive OR operator ^
+                            //x8 + x4 + x3 + x + 1.
 
                         }
 
@@ -492,8 +506,8 @@ namespace SecurityLibrary.AES
                             byte x1 = advancedmultiplybyTwo(x0);
                             byte x2 = advancedmultiplybyTwo(x1);
                             byte x3 = advancedmultiplybyTwo(x2);
-                            arrayXor[k] = Convert.ToByte(x3 ^ x2 ^ x1);
-                            //UInt32 tmp = Convert.ToUInt32(((((shiftedmatrix[k, i] << 1) ^ shiftedmatrix[k, i]) << 1) ^ shiftedmatrix[k, i]) << 1);//x*2^x*2^x*2
+                            arrayXor[k] = Convert.ToByte(x3 ^ x2 ^ x1);//Logical exclusive OR operator ^
+                            //x8 + x4 + x3 + x + 1.
                         }
                     }
                     var cell = arrayXor[0] ^ arrayXor[1] ^ arrayXor[2] ^ arrayXor[3];
@@ -573,7 +587,7 @@ namespace SecurityLibrary.AES
             state = shiftMatrixInverse(state);
             print_mat(state);
             //print_key_matrix();
-            state = substituteMatrixInverse(state);
+            state = substituteMatrixInverse(state);//sbox substitution
             print_mat(state);
             //print_key_matrix();
             return state;
@@ -598,10 +612,10 @@ namespace SecurityLibrary.AES
         /**********************************************************************************************************************************************************************************************/
         public override string Decrypt(string cipherText, string key)
         {
-            
+            //throw new NotImplementedException();
             byte[,] state = createMatrix_Byte(cipherText);
             put_key(key);
-            implement_key_expansion();
+            implement_key_expansion();//genrate keys
             state = finalRoundDecrypt(state);
             print_mat(state);
 

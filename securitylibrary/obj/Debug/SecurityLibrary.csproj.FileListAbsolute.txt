@@ -10,3 +10,6 @@ C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\Securi
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.csproj.CoreCompileInputs.cache
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\bin\Debug\MathNet.Numerics.dll
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\bin\Debug\MathNet.Numerics.xml
+C:\Users\ayamo\Documents\GitHub\SecurityProject\SecurityLibrary\obj\Debug\SecurityLibrary.csproj.CopyComplete
