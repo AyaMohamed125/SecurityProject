@@ -13,15 +13,25 @@ namespace SecurityLibrary.DES
     {
         public string Decrypt(string cipherText, List<string> key)
         {
-            throw new NotImplementedException();
+            DES orignalDES = new DES();
+            string plainText = orignalDES.Decrypt(cipherText, key[1]);
+            plainText = orignalDES.Encrypt(plainText, key[0]);
+            plainText = orignalDES.Decrypt(plainText, key[1]);
+
+            return plainText;
         }
 
         public string Encrypt(string plainText, List<string> key)
         {
-            throw new NotImplementedException();
+            DES orignalDES = new DES();
+            string cipherText = orignalDES.Encrypt(plainText, key[0]);
+            cipherText = orignalDES.Decrypt(cipherText, key[1]);
+            cipherText = orignalDES.Encrypt(cipherText, key[0]);
+
+            return cipherText;
         }
 
-        public List<string> Analyse(string plainText,string cipherText)
+        public List<string> Analyse(string plainText, string cipherText)
         {
             throw new NotSupportedException();
         }
